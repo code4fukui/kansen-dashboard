@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+
+<h1>感染症ダッシュボード</h1>
+<h2>今年 - 定点当り報告数</h2>
+<div id=chart1></div>
+<h2>2013年〜今年 - 定点当り報告数</h2>
+<div id=chart2></div>
+
+<hr>
+Data: <a href=https://github.com/code4fukui/niid_go_jp>NIID 国立感染症研究所 速報オープンデータ</a><br>
+App: <a href=https://github.com/code4fukui/kansen-dashboard/>src on GitHub</a>
+
+<script type="module">
+import { CSV } from "https://js.sabae.cc/CSV.js";
+import { initC3 } from "https://code4fukui.github.io/c3-es/c3-es.js";
+const c3 = initC3(window);
+
+const url = "https://code4fukui.github.io/niid_go_jp/data/trend.csv";
+const data = await CSV.fetchJSON(url);
+console.log(data);
+
+const param = new URL(location.href).searchParams;
+
+const showChart = (bindto, data, year) => {
+  const keys = Object.keys(data[0]);
+  const cols = {};
+  const xflg = true; // year !== undefined;
+  for (const name of keys) {
+    if (!xflg && name == "week") continue;
+    const val = [];
+    //val.push(name);
+    for (const d of data) {
+      if (year && !d.week.startsWith(year)) continue;
+      val.push(d[name]);
+    }
+    cols[name] = val;
+  }
+  console.log(cols)
+
+  if (xflg) {
+    const chart = c3.generate({
+      bindto,
+      data: {
+        x: "week",
+        json: cols,
+      },
+      axis: {
+        x: {
+          type: "category",
+          show: year !== undefined,
+        },
+      },
+    });
+  } else {
+    const chart = c3.generate({
+      bindto,
+      data: {
+        json: cols,
+      },
+    });
+  }
+};
+
+showChart("#chart1", data, new Date().getFullYear());
+showChart("#chart2", data);
+
+</script>
