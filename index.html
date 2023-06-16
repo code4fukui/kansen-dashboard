@@ -23,6 +23,7 @@ const param = new URL(location.href).searchParams;
 
 const showChart = (bindto, data, year) => {
   const keys = Object.keys(data[0]);
+  console.log(keys.filter(k => k != "week").join("、"));
   const cols = {};
   const xflg = true; // year !== undefined;
   for (const name of keys) {
@@ -31,7 +32,7 @@ const showChart = (bindto, data, year) => {
     //val.push(name);
     for (const d of data) {
       if (year && !d.week.startsWith(year)) continue;
-      val.push(d[name]);
+      val.push(d[name] || NaN);
     }
     cols[name] = val;
   }
