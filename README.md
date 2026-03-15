@@ -1,4 +1,7 @@
 # kansen-dashboard
+
+> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
+
 An infectious disease dashboard.
 
 ## Demo
