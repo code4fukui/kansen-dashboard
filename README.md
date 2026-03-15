@@ -1,8 +1,16 @@
-# kansen-dashboar 感染症ダッシュボード
+# kansen-dashboard
+An infectious disease dashboard.
 
-- [感染症ダッシュボード](https://code4fukui.github.io/kansen-dashboard/)
+## Demo
+[Infectious Disease Dashboard](https://code4fukui.github.io/kansen-dashboard/)
 
-## 出展
+## Features
+- Displays time-series data on the number of reported cases per sentinel site
+- Supports data visualization for the current year and from 2013 to the present
 
-- [NIID 国立感染症研究所 速報オープンデータ](https://github.com/code4fukui/niid_go_jp)
-- https://code4fukui.github.io/niid_go_jp/data/trend.csv
+## Data / API
+- Data source: [NIID (National Institute of Infectious Diseases) Open Data](https://github.com/code4fukui/niid_go_jp)
+- Data file: [trend.csv](https://code4fukui.github.io/niid_go_jp/data/trend.csv)
+
+## License
+MIT License
